@@ -24,12 +24,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: the_database
     volumes:
-      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-      - ./mongo_data:/data/db
+      - mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo_data:/data/db
   redis:
     image: redis
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
-      - ./redis_data:/data
+      - redis_data:/data
     ports:
       - 3457:6379
