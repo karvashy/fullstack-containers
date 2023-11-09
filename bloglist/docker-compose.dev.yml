@@ -1,0 +1,26 @@
+services:
+  bloglist-frontend:
+    image: bloglist-frontend-dev
+    container_name: bloglist-frontend-dev
+    build:
+      context: ./bloglist-frontend
+      dockerfile: ./dev.Dockerfile
+    volumes:
+      - ./bloglist-frontend:/usr/src/app
+  bloglist-backend:
+    image: bloglist-backend-dev
+    container_name: bloglist-backend-dev
+    build:
+      context: ./bloglist-backend
+      dockerfile: ./dev.Dockerfile
+    volumes:
+      - ./bloglist-backend:/usr/src/app
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: bloglist-reverse-proxy
+    depends_on:
+      - bloglist-frontend
